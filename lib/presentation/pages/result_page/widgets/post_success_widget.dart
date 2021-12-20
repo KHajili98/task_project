@@ -23,7 +23,7 @@ class PostSuccesWidget extends StatelessWidget {
         String path = "";
         var paths = data[index].result!.steps!;
         for (var i = 0; i < paths.length; i++) {
-          if (i != data.length - 1) {
+          if (i != paths.length - 1) {
             path += " (${paths[i].x},${paths[i].y}) => ";
           } else {
             path += " (${paths[i].x},${paths[i].y}) ";
