@@ -58,6 +58,7 @@ var curPath = [];
 var results = [];
 
 void findPath(x, y) {
+  //! THIS METHOD check point --> out of the edges, out of locked cells, out of the visited path
   bool isOutOfBound(
     x,
     y,
@@ -76,15 +77,17 @@ void findPath(x, y) {
     return;
   }
 
-  matrix[x][y] = 'V';
+  matrix[x][y] = 'V'; //! this detected for VISITED (v) path.
 
   if (x == end[0] && y == end[1]) results.add([...curPath]);
 
+  //! using recursive method for left and Right moving
   findPath(x + 1, y);
   findPath(x - 1, y);
   findPath(x, y + 1);
   findPath(x, y - 1);
 
+  //! using recursive method for diagonal moving
   findPath(x + 1, y + 1);
   findPath(x + 1, y - 1);
   findPath(x - 1, y + 1);
@@ -94,19 +97,23 @@ void findPath(x, y) {
   if (matrix[x][y] == 'V') matrix[x][y] = '.';
 }
 
+//! get the short path from all paths reslt
 getShortPath() {
   return results
       .reduce((curr, next) => curr.length < next.length ? curr : next);
 }
 
+//! get the starting point from short path
 getStartingCell() {
   return getShortPath().first;
 }
 
+//! get the end point from short path
 getDestinationCell() {
   return getShortPath().last;
 }
 
+//! get the middle points (start and end point removed) from short path
 getShortestPathCells(List shortpath) {
   var list = [...shortpath];
   if (list.length != 0) {
